@@ -16,4 +16,4 @@ Up, Down, Left, Right - Move in the grid
 X O- Exit Game
 Up - Rotate Tetris Block Clockwise 90 deg
 Down - Hard Send on the block. Block immediately drops down.
-Left and Right- Move Tetris Block
+Left and Right- Move Tetris Blocks
