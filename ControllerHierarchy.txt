@@ -1,0 +1,19 @@
+Available Control Options: Up, Down, Left, Right, Button 1 (X), Button 2 (O)
+
+
+1) Pong
+Up- Paddle goes Up
+Down- Paddle goes Down
+X O- Exit Game Prompt
+
+2) Minesweeper
+X O - Exit Game
+X- Flag
+O- Clear
+Up, Down, Left, Right - Move in the grid
+
+3) Tetris
+X O- Exit Game
+Up - Rotate Tetris Block Clockwise 90 deg
+Down - Hard Send on the block. Block immediately drops down.
+Left and Right- Move Tetris Block
