@@ -1,0 +1,109 @@
+#include <ESP32Lib.h>
+#include <Ressources/Font6x8.h>
+#include <esp_now.h>
+#include <WiFi.h>
+
+// Pin configuration
+const int redPin = 14;
+const int greenPin = 19;
+const int bluePin = 27;
+const int hsyncPin = 32;
+const int vsyncPin = 33;
+
+VGA3Bit vga;
+
+// MAC Address of the other ESP32
+// For ESP32 #1 (84:cc:a8:48:82:68), use this:
+//uint8_t broadcastAddress[] = {0xA0, 0xDD, 0x6C, 0x02, 0xC8, 0xB8};
+
+// For ESP32 #2 (a0:dd:6c:02:c8:b8), use this:
+uint8_t broadcastAddress[] = {0x84, 0xCC, 0xA8, 0x48, 0x82, 0x68};
+
+// Choose which ESP you're programming:
+//#define ESP1
+#define ESP2
+
+#ifdef ESP1
+  const char* espName = "ESP1";
+#endif
+
+#ifdef ESP2
+  const char* espName = "ESP2";
+#endif
+
+typedef struct struct_message {
+  char message[32];
+} struct_message;
+
+struct_message myData;
+
+void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+  vga.setCursor(0, 40);
+  vga.print(espName);
+  vga.print(": ");
+  vga.println(status == ESP_NOW_SEND_SUCCESS ? "Message sent successfully" : "Failed to send message");
+}
+
+void OnDataRecv(const esp_now_recv_info_t *esp_now_info, const uint8_t *incomingData, int len) {
+  vga.setCursor(0, 60);
+  vga.print(espName);
+  vga.print(": ");
+  vga.println("Message received from other ESP");
+}
+
+void setup() {
+  vga.init(vga.MODE320x240, redPin, greenPin, bluePin, hsyncPin, vsyncPin);
+  vga.setFont(Font6x8);
+  vga.clear(vga.RGB(0, 0, 0));
+  vga.setCursor(0, 0);
+  vga.print(espName);
+  vga.println(" Communication Test");
+
+  WiFi.mode(WIFI_STA);
+
+  if (esp_now_init() != ESP_OK) {
+    vga.println("Error initializing ESP-NOW");
+    return;
+  }
+
+  esp_now_register_send_cb(OnDataSent);
+  esp_now_register_recv_cb(OnDataRecv);
+  
+  esp_now_peer_info_t peerInfo;
+  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+  peerInfo.channel = 0;  
+  peerInfo.encrypt = false;
+  
+  if (esp_now_add_peer(&peerInfo) != ESP_OK){
+    vga.println("Failed to add peer");
+    return;
+  }
+
+  vga.println("ESP-NOW initialized");
+}
+
+void loop() {
+  static unsigned long lastSendTime = 0;
+  unsigned long currentTime = millis();
+
+  if (currentTime - lastSendTime > 5000) {  // Send every 5 seconds
+    snprintf(myData.message, sizeof(myData.message), "Hello from %s!", espName);
+    
+    esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
+     
+    vga.setCursor(0, 20);
+    vga.print(espName);
+    vga.print(": ");
+    vga.println("Attempting to send message...");
+
+    lastSendTime = currentTime;
+  }
+
+  // Clear the screen every 30 seconds
+  if (currentTime % 30000 == 0) {
+    vga.clear(vga.RGB(0, 0, 0));
+    vga.setCursor(0, 0);
+    vga.print(espName);
+    vga.println(" Communication Test");
+  }
+}
