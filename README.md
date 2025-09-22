@@ -1,3 +1,12 @@
+## Team Members and Roles
+
+| Name             | Role(s)                    | Key Contributions / Responsibilities |
+|------------------|---------------------------|--------------------------------------|
+| Rafik Ibrahim    | Electrical Engineer (EE)   | Designed and assembled main console PCB; implemented power system; integrated Bluetooth, joystick, VGA, and DFPlayer Mini; conducted hardware testing, firmware programming, and signal validation. |
+| Annabelle Werner | Computer Engineer (COE)    | Developed Minesweeper game; managed multiplayer functionality; ensured controller input integrity; integrated software with hardware; tested ESP32-Bluetooth communication. |
+| Tanvi Verma      | Computer Engineer (COE)    | Developed Pong game logic; implemented dual-screen synchronization; designed main UI with Anh; handled input mapping, game testing, debugging, and GitHub/Discord coordination. |
+| Anh Nguyen       | Computer Engineer (COE)    | Developed Tetris game; designed and fabricated console enclosure; optimized gameplay; collaborated on UI design; managed part procurement, budgeting, and assembly. |
+
 # Project TARA – Multiplayer Retro Game Console
 
 **Project TARA** is an innovative retro-style multiplayer game console developed by a team of 4 Pitt ECE students over a 13-week project. It combines nostalgia, strategy, and engineering innovation to deliver a fun, engaging, and accessible gaming experience.  
