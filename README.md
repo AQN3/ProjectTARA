@@ -12,6 +12,7 @@
 **Project TARA** is an innovative retro-style multiplayer game console developed by a team of 4 Pitt ECE students over a 13-week project. It combines nostalgia, strategy, and engineering innovation to deliver a fun, engaging, and accessible gaming experience.  
 
 The console features **three classic games**: **Tetris, Minesweeper, and Pong**, playable in both **single-player and multiplayer modes**. Its unique **dual-screen setup** ensures dynamic gameplay while maintaining independent player experiences.
+<img width="1590" height="835" alt="image" src="https://github.com/user-attachments/assets/47c2d415-1db1-461b-8241-413e16bf4791" />
 
 ---
 
